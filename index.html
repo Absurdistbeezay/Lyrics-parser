@@ -8,51 +8,86 @@
     <!--Materialize CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script> -->
     <title>Parse Lyrics</title>
 </head>
 <body>
 
-  <div class="container">
+ <div class="container">
+     <h3>Lyrics Parser Sample</h3>
+     
+         <textarea name="lyrics" id="lyrics"></textarea>
+         <button class="btn" onclick="showResult()">Show Result</button>
+         <button class="btn" onclick="parseCopy()">Show Parsed Codes</button>
+    
+     <div id="result"></div>
+    <div id="parsedContent"></div>
 
-    <h2>Lyrics Parser</h2>
-
-    <form id="form">
-        <label for="lyrics">Type Lyrics</label>
-        <textarea name="lyrics" id="lyrics">
-        </textarea>
-        <button class="btn" type="submit">Show Result</button>
-
-    </form>
-    <div id="result">
-
-    </div>
-
-  </div>
-
-  <style>
-  textarea{
-      height: 400px;
-  }
-  </style>
-
+ </div>
   
+ <style>
+ textarea{
+     height: 300px;
+ }
+ #result{
+     border: 1px solid #444;
+     padding: 10px;
+     display: none;
+    margin: auto;
+    width:80%;
+    margin-top: 20px;
+     
+ }
+
+ </style>
   <script src="./parseHTML.js"></script>
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-      <!-- <script>
-       $('#textarea1').val('New Text');
-        $('#textarea1').trigger('autoresize');
-      </script> -->
       <script>
-         document.getElementById('form').addEventListener('submit', showResult)
+        //  document.getElementById('form').addEventListener('submit', showResult)
        
+        const result = document.getElementById('result');
+        
 
-        function showResult(){
-           
+        function showResult(){    
             let lyricsInput = document.getElementById('lyrics').value;
+            let parsedInput = parseToHtml(lyricsInput);       
+            
+            result.style.display = "block";
 
-            document.getElementById('result').innerHTML = lyricsInput;
+            result.innerHTML = parsedInput;
         }
+        function parseCopy(){
+            let lyricsInput = document.getElementById('lyrics').value;
+            let parsedInput = parseToHtml(lyricsInput);
+            alert(parsedInput);
+            // document.getElementById('parsedContent').innerHTML = `<xmp>${parsedInput}</xmp>`;
+            
+                
+        }
+
+//         function CopyToClipboard(containerid) {
+//         if (document.selection) { 
+//             const range = document.body.createTextRange();
+//             range.moveToElementText(document.getElementById(containerid));
+//             range.select().createTextRange();
+//             document.execCommand("copy"); 
+
+//         } else if (window.getSelection) {
+//             const range = document.createRange();
+//             range.selectNode(document.getElementById(containerid));
+//             window.getSelection().addRange(range);
+//             document.execCommand("copy");
+//             alert("text copied") 
+// }}
+        
+        /*
+`A      B    C
+K cha hajur khabar timro
+`D      E     E   F
+tha chaina malai
+_ketiko palo
+khai kina ho timro maya
+        */
       
       </script>
 </body>
